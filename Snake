@@ -1,6 +1,6 @@
 #snake game
 
-#essential game imports
+# Thiết lập đầu game
 import pygame, sys, random, time
 pygame.mixer.pre_init(44100,16,2,4096)
 pygame.init()
@@ -12,17 +12,17 @@ if check_errors[1] > 0:
 else:
     print("(+) Pygame successfully initialized!")
 
-# Play surface
+# Màn hình chơi
 playSurface = pygame.display.set_mode((720, 460)) #setting display size
 pygame.display.set_caption('==> Snake Game <==')
 # time.sleep(5) #screen will sleep for 5 seconds
 
-#Play background music
+# Nhạc nền
 pygame.mixer.music.load("Nagin Been Music.mp3")
 pygame.mixer.music.get_volume()
 pygame.mixer.music.play(-1)
 
-# colours
+# Màu sắc
 red = pygame.Color(255,0,0)    #gameover
 green = pygame.Color(0,255,0)   #snake
 black = pygame.Color(0,0,0)     #score
@@ -32,7 +32,7 @@ brown = pygame.Color(165, 42, 42)   #food
 # frames per second controller
 fpsController = pygame.time.Clock()
 
-# important variables
+# Các biến quan trọng
 snakePos = [100,50]  # it works like x and y axis [x,y]
 snakeBody = [[100,50],[90,50],[80,50]]
 
@@ -44,7 +44,7 @@ score = 0
 direction = 'RIGHT'
 changeto = direction
 
-# game over function
+# Phương thức kết thúc trò chơi
 def gameOver():
     myFont = pygame.font.SysFont('monaco',72)
     GOsurf = myFont.render('Game Over!',True, red)
@@ -68,7 +68,7 @@ def showScore(choice=1):
     playSurface.blit(Ssurf,Srect)
     
 
-# main logic of the game
+# Logic chính của game
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:    #cheking if type of event is equal to event present in pygame i.e. QUIT
@@ -86,7 +86,7 @@ while True:
             if event.key == pygame.K_ESCAPE:
                 pygame.event.post(pygame.event.Event(pygame.QUIT))
 
-    # validation of direction
+    # Điều hướng
     if changeto == 'RIGHT' and not direction == 'LEFT':
         direction = 'RIGHT'
     if changeto == 'LEFT' and not direction == 'RIGHT':
@@ -96,7 +96,7 @@ while True:
     if changeto == 'DOWN' and not direction == 'UP':
         direction = 'DOWN'
 
-    # changing direction of the snake by incrementing and decrementing x and y coordinate
+    # Thay đổi hướng đi của rắn
     if direction == 'RIGHT':
         snakePos[0] += 10
     if direction == 'LEFT':
@@ -106,7 +106,7 @@ while True:
     if direction == 'DOWN':
         snakePos[1] -= 10
 
-    # snake body mechanism
+    # Xử lý chuyển động của rắn
     snakeBody.insert(0, list(snakePos))
     if snakePos[0] == foodPos[0] and snakePos[1] == foodPos[1]:
         score += 1
